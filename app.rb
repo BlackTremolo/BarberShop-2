@@ -35,6 +35,11 @@ configure do
 	seed_db $db, ['Walter', 'Jessia', 'Gus']    
 end
 
+before do
+	$db.results_as_hash = true	
+	
+	@barbers = $db.execute 'select * from Barbers'
+end
 
 get '/' do
 	erb "Hello! <a href=\"https://github.com/bootstrap-ruby/sinatra-bootstrap\">Original</a> pattern has been modified for <a href=\"http://rubyschool.us/\">Ruby School</a>"			
@@ -60,9 +65,13 @@ post '/visit' do
 	@barber = params[:barber]
 	@color = params[:color]
 	
-	$db.execute 'insert into Users 
-	(name, phone, datestamp, barber, color) 
-	values (?, ?, ?, ?, ?)', [@username, @phone, @datestamp, @barber, @color]
+	if @username == '' || @phone == '' || @datestamp == '' || @barber == '' || @color == ''
+			
+	else
+		$db.execute 'insert into Users 
+		(name, phone, datestamp, barber, color) 
+		values (?, ?, ?, ?, ?)', [@username, @phone, @datestamp, @barber, @color]
+	end
 
 	
 	hh = {:username => 'Введите имя', :phone => 'Введите телефон', :datetime => 'Введите дату и время'}
