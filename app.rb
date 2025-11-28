@@ -41,7 +41,7 @@ post '/visit' do
 	@color = params[:color]
 	
 	$db.execute 'insert into Users 
-	(name, phone, datestamp, barber, color)
+	(name, phone, datestamp, barber, color) 
 	values (?, ?, ?, ?, ?)', [@username, @phone, @datestamp, @barber, @color]
 
 	
@@ -53,14 +53,7 @@ post '/visit' do
 		erb :visit
 	else
 		erb 'Вы записаны'
-	end
-	
-	# f = File.open './public/users.txt', 'a'
-	# f.write "Имя клиента: #{@username}, Телефон: #{@phone}, Время записи: #{@datetime}, Имя парикмахера: #{@barber}, Цвет краски: #{@color}\n"
-	# f.close
-
-	
-	
+	end	
 end
 
 post '/contacts' do 
@@ -74,3 +67,9 @@ post '/contacts' do
 	erb :contacts
 end
 
+get '/showusers' do 
+	$db.execute 'select * from Users' do |row|
+		@user = row
+	end
+	erb :showusers		
+end
