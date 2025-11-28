@@ -13,6 +13,11 @@ configure do
 	    barber    TEXT,
 	    color     TEXT
 	);'
+	
+	$db.execute 'CREATE TABLE if not exists Barbers (
+		id        INTEGER PRIMARY KEY AUTOINCREMENT,
+	    name      TEXT
+	    );'
 end
 
 
@@ -68,8 +73,11 @@ post '/contacts' do
 end
 
 get '/showusers' do 
+	
+	@user = []	
+	$db.results_as_hash = true	
 	$db.execute 'select * from Users' do |row|
-		@user = row
+		@user << "#{row['name']} записался на #{row['datestamp']}, парикмахер - #{row['barber']}, цвет - #{row['color']}, телефон: #{row['phone']}"
 	end
 	erb :showusers		
 end
