@@ -73,11 +73,9 @@ post '/contacts' do
 end
 
 get '/showusers' do 
-	
-	@user = []	
 	$db.results_as_hash = true	
-	$db.execute 'select * from Users' do |row|
-		@user << "#{row['name']} записался на #{row['datestamp']}, парикмахер - #{row['barber']}, цвет - #{row['color']}, телефон: #{row['phone']}"
-	end
+	
+	@results = $db.execute 'select * from Users order by id desc'
+	
 	erb :showusers		
 end
