@@ -19,9 +19,9 @@
     <div>
       <label class="form-label">Выбирите парикмахера</label>
       <select name="barber">
-        <option value="Walter">Walter</option>
-        <option value="Jessia">Jessia</option> 
-        <option value="Gus">Gus</option>
+        <option <%= @barber == 'Walter' ? 'selected' : '' %>>Walter</option>
+        <option <%= @barber == 'Jessia' ? 'selected' : '' %>>Jessia</option> 
+        <option <%= @barber == 'Gus' ? 'selected' : '' %>>Gus</option>
      </select>  
     </div>
    
