@@ -22,7 +22,7 @@ end
 post '/visit' do 
 	@username = params[:username]
 	@phone = params[:phone]
-	@datetime = params[:datetime]
+	@datestamp = params[:datestamp]
 	@barber = params[:barber]
 	@color = params[:color]
 	
